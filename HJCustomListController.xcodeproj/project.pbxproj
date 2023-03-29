@@ -7,18 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		324A695729E5386A002434CE /* HJCustomListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 324A695629E5386A002434CE /* HJCustomListViewController.xib */; };
 		3273AEF127296730002D765E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3273AEF027296730002D765E /* AppDelegate.swift */; };
 		3273AEF327296730002D765E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3273AEF227296730002D765E /* SceneDelegate.swift */; };
 		3273AEF527296730002D765E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3273AEF427296730002D765E /* ViewController.swift */; };
 		3273AEF827296730002D765E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3273AEF627296730002D765E /* Main.storyboard */; };
 		3273AEFA27296731002D765E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3273AEF927296731002D765E /* Assets.xcassets */; };
 		3273AEFD27296731002D765E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3273AEFB27296731002D765E /* LaunchScreen.storyboard */; };
-		3273AF09272967EC002D765E /* HJCustomListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3273AF06272967EC002D765E /* HJCustomListViewController.xib */; };
 		3273AF0A272967EC002D765E /* HJCustomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3273AF07272967EC002D765E /* HJCustomListViewController.swift */; };
 		3273AF0B272967EC002D765E /* CustomListAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3273AF08272967EC002D765E /* CustomListAssets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		324A695629E5386A002434CE /* HJCustomListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HJCustomListViewController.xib; sourceTree = "<group>"; };
 		3273AEED27296730002D765E /* HJCustomListController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HJCustomListController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3273AEF027296730002D765E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3273AEF227296730002D765E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -27,7 +28,6 @@
 		3273AEF927296731002D765E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3273AEFC27296731002D765E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3273AEFE27296731002D765E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3273AF06272967EC002D765E /* HJCustomListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HJCustomListViewController.xib; sourceTree = "<group>"; };
 		3273AF07272967EC002D765E /* HJCustomListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HJCustomListViewController.swift; sourceTree = "<group>"; };
 		3273AF08272967EC002D765E /* CustomListAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CustomListAssets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,7 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				3273AF07272967EC002D765E /* HJCustomListViewController.swift */,
-				3273AF06272967EC002D765E /* HJCustomListViewController.xib */,
+				324A695629E5386A002434CE /* HJCustomListViewController.xib */,
 				3273AF08272967EC002D765E /* CustomListAssets.xcassets */,
 			);
 			path = Source;
@@ -144,9 +144,9 @@
 			files = (
 				3273AEFD27296731002D765E /* LaunchScreen.storyboard in Resources */,
 				3273AEFA27296731002D765E /* Assets.xcassets in Resources */,
+				324A695729E5386A002434CE /* HJCustomListViewController.xib in Resources */,
 				3273AF0B272967EC002D765E /* CustomListAssets.xcassets in Resources */,
 				3273AEF827296730002D765E /* Main.storyboard in Resources */,
-				3273AF09272967EC002D765E /* HJCustomListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,10 +307,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TEH78WF7A2;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HJCustomListController/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -318,6 +318,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -325,7 +326,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bmsoft.HJCustomListController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "ALL Apps Dev";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -337,10 +338,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TEH78WF7A2;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HJCustomListController/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -348,6 +349,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -355,7 +357,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bmsoft.HJCustomListController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "ALL Apps Dev";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
