@@ -96,52 +96,44 @@ struct BottomButtonConfiguration {
     var height: CGFloat = 40
 }
 
-typealias RowTypeConstraints = Equatable //& Encodable & Identifiable
-
-struct DefaultElementType: RowTypeConstraints {
-    var id: Int = 0
-}
+typealias RowTypeConstraints = Equatable
+struct EmptyElement: RowTypeConstraints { }
 
 protocol ListRowProtocol: Equatable {
-    associatedtype ListElement: RowTypeConstraints = DefaultElementType
+    associatedtype ListElement: RowTypeConstraints
     var title: String { get set}
     var subtitle: String? { get set}
     var rowObject: ListElement? { get set }
 }
 
 extension ListRowProtocol {
-    var rowObject: DefaultElementType? {
-        get {
-            return nil
-        }
-        set { }
-    }
-    
     var subtitle: String? {
         get {
             return nil
         }
         set { }
     }
+    
+    var rowObject: EmptyElement? {
+        get { return nil }
+        set { }
+    }
 }
-
 
 struct HJRowData<Element: RowTypeConstraints>: ListRowProtocol {
     
-    typealias ListElement = AnyHashable
+    typealias ListElement = Element
     
     var id: String?
     var title: String
     var subtitle: String?
     var rowObject: ListElement?
-    var dataDictionary: Dictionary<String,Any>?
     
-    init(id: String?, title: String, subtitle: String? = nil, rowObject: ListElement? = nil, dataDictionary: Dictionary<String,Any>? = nil) {
+    init(id: String?, title: String, subtitle: String? = nil, rowObject: ListElement? = nil) {
         self.id = id
         self.title = title
         self.subtitle = subtitle
         self.rowObject = rowObject
-        self.dataDictionary = dataDictionary
     }
     
     static func == (lhs: HJRowData, rhs: HJRowData) -> Bool {
@@ -150,10 +142,12 @@ struct HJRowData<Element: RowTypeConstraints>: ListRowProtocol {
             if lhsID.isEmpty == false && rhsID.isEmpty == false{
                 return lhsID == rhsID
             }
-        }else if let lhsRowObject = lhs.rowObject, let rhsRowObject = rhs.rowObject {
+        } else if let lhsRowObject = lhs.rowObject, let rhsRowObject = rhs.rowObject {
             return lhsRowObject == rhsRowObject
-        }else{
-            return lhs.title == rhs.title && lhs.subtitle == rhs.subtitle
+        } else if let lhsSubtitle = lhs.subtitle, let rhsSubtitle = rhs.subtitle {
+            return lhs.title == rhs.title && lhsSubtitle == rhsSubtitle
+        } else {
+            return lhs.title == rhs.title
         }
         
         return false
@@ -166,48 +160,57 @@ struct HJIdentifier {
     var controlObject: Any?
 }
 
+private
+struct AnyEquatable {
+    private let value: Any
+    private let equals: (Any) -> Bool
+
+    public init<T: Equatable>(_ value: T) {
+        self.value = value
+        self.equals = { ($0 as? T == value) }
+    }
+}
+
+extension AnyEquatable: Equatable {
+    static public func ==(lhs: AnyEquatable, rhs: AnyEquatable) -> Bool {
+        return lhs.equals(rhs.value)
+    }
+}
+
 //MARK: - protocol
 
 protocol HJCustomListDelegate: AnyObject {
     
     /// - Return true if we want to dsimiss Custome List on selection
-    @discardableResult func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, selectedValues selectedRows: Array<RowData>) -> Bool?
+    @discardableResult func customList(_ customList: HJCustomListViewController, selectedValues selectedRows: Array<any ListRowProtocol>) -> Bool?
     
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, leftButtonTapped selectedRows: Array<RowData>)
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, rightButtonTapped selectedRows: Array<RowData>)
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, bottomButtonTapped selectedRows: Array<RowData>)
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, accessoryButtonTapped accessoryButton: UIButton, rowData: RowData)
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, colorForTitle rowData: RowData) -> UIColor?
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, colorForSubtitle rowData: RowData) -> UIColor?
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, colorFroRow rowData: RowData) -> UIColor?
+    func customList(_ customList: HJCustomListViewController, leftButtonTapped selectedRows: Array<any ListRowProtocol>)
+    func customList(_ customList: HJCustomListViewController, rightButtonTapped selectedRows: Array<any ListRowProtocol>)
+    func customList(_ customList: HJCustomListViewController, bottomButtonTapped selectedRows: Array<any ListRowProtocol>)
+    func customList(_ customList: HJCustomListViewController, accessoryButtonTapped accessoryButton: UIButton, rowData: any ListRowProtocol)
+    func customList(_ customList: HJCustomListViewController, colorForTitle rowData: any ListRowProtocol) -> UIColor?
+    func customList(_ customList: HJCustomListViewController, colorForSubtitle rowData: any ListRowProtocol) -> UIColor?
+    func customList(_ customList: HJCustomListViewController, colorFroRow rowData: any ListRowProtocol) -> UIColor?
     /// - Called when shouldShowSelection is turned false
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, imageFromRow rowData: RowData) -> UIImage?
+    func customList(_ customList: HJCustomListViewController, imageFromRow rowData: any ListRowProtocol) -> UIImage?
     /// - Called when list view controller is being dismissed
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, listViewDismissed selectedRows: Array<RowData>)
+    func customList(_ customList: HJCustomListViewController, listViewDismissed selectedRows: Array<any ListRowProtocol>)
 }
 
 //Provide Default Implementations for optional protocols
 extension HJCustomListDelegate {
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, leftButtonTapped selectedRows: Array<RowData>) {}
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, rightButtonTapped selectedRows: Array<RowData>) {}
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, bottomButtonTapped selectedRows: Array<RowData>) {}
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, accessoryButtonTapped accessoryButton: UIButton, rowData: RowData) {}
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, colorForTitle rowData: RowData) -> UIColor? {
-        return nil
-    }
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, colorForSubtitle rowData: RowData) -> UIColor? {
-        return nil
-    }
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, colorFroRow rowData: RowData) -> UIColor? {
-        return nil
-    }
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, imageFromRow rowData: RowData)  -> UIImage? {
-        return nil
-    }
-    func customList<RowData: ListRowProtocol>(_ customList: HJCustomListViewController<RowData>, listViewDismissed selectedRows: Array<RowData>) {}
+    func customList(_ customList: HJCustomListViewController, leftButtonTapped selectedRows: Array<any ListRowProtocol>) {}
+    func customList(_ customList: HJCustomListViewController, rightButtonTapped selectedRows: Array<any ListRowProtocol>) {}
+    func customList(_ customList: HJCustomListViewController, bottomButtonTapped selectedRows: Array<any ListRowProtocol>) {}
+    func customList(_ customList: HJCustomListViewController, accessoryButtonTapped accessoryButton: UIButton, rowData: any ListRowProtocol) {}
+    func customList(_ customList: HJCustomListViewController, colorForTitle rowData: any ListRowProtocol) -> UIColor? { return nil }
+    func customList(_ customList: HJCustomListViewController, colorForSubtitle rowData: any ListRowProtocol) -> UIColor? { return nil }
+    func customList(_ customList: HJCustomListViewController, colorFroRow rowData: any ListRowProtocol) -> UIColor? { return nil }
+    func customList(_ customList: HJCustomListViewController, imageFromRow rowData: any ListRowProtocol) -> UIImage? { return nil }
+    func customList(_ customList: HJCustomListViewController, listViewDismissed selectedRows: Array<any ListRowProtocol>) {}
 }
 
-class HJCustomListViewController<RowData: ListRowProtocol>: UIViewController, UIAdaptivePresentationControllerDelegate, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
+class HJCustomListViewController: UIViewController, UIAdaptivePresentationControllerDelegate, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
     //IBOutelt
     
@@ -238,6 +241,8 @@ class HJCustomListViewController<RowData: ListRowProtocol>: UIViewController, UI
     @IBOutlet fileprivate weak var bottomButtonHeightConstraint: NSLayoutConstraint!
     
     //Properties
+    
+    typealias RowData = (any ListRowProtocol)
     
     private var listDataArr: Array<RowData>
     
@@ -541,7 +546,7 @@ class HJCustomListViewController<RowData: ListRowProtocol>: UIViewController, UI
     
     //MARK: - Data Creation
     
-    class func parseDataFromArrayOfDictionary<Element: RowTypeConstraints>(baseArray: Array<Dictionary<String,Any>>, idTypeKey: String? = nil, titleTypeKeys: [String], titleSeperator: String = ", ", defaultTitleForEmptyData: String = "", subtitleTypeKeys: [String]? = nil, subtitleSeperator: String = ", ", defaultSubtitleForEmptyData: String = "", needDataDictionary: Bool = false) -> Array<HJRowData<Element>> {
+    class func parseDataFromArrayOfDictionary<Element: RowTypeConstraints>(baseArray: Array<Dictionary<String,Any>>, idTypeKey: String? = nil, titleTypeKeys: [String], titleSeperator: String = ", ", defaultTitleForEmptyData: String = "", subtitleTypeKeys: [String]? = nil, subtitleSeperator: String = ", ", defaultSubtitleForEmptyData: String = "") -> Array<HJRowData<Element>> {
         
         //Nested Function Start
         func parseID(_ dictionary: Dictionary<String,Any>) -> String {
@@ -561,7 +566,7 @@ class HJCustomListViewController<RowData: ListRowProtocol>: UIViewController, UI
             let titleTxt = getDataFromMultipleKeys(dictionary: dictionary, stringArr: titleTypeKeys, seperatorString: titleSeperator)
             let subtitleTxt = getDataFromMultipleKeys(dictionary: dictionary, stringArr: subtitleTypeKeys, seperatorString: subtitleSeperator)
             
-            let rowData = HJRowData<Element>(id: dataID, title: titleTxt, subtitle: subtitleTxt, rowObject: nil, dataDictionary: needDataDictionary ? dictionary : nil)
+            let rowData = HJRowData<Element>(id: dataID, title: titleTxt, subtitle: subtitleTxt, rowObject: nil)
             
             dataArr.append(rowData)
         }
@@ -569,7 +574,7 @@ class HJCustomListViewController<RowData: ListRowProtocol>: UIViewController, UI
         return dataArr
     }
     
-    class func parseDataFromArrayOfDictionary<Element: RowTypeConstraints>(baseArray: Array<Dictionary<String,Any>>, idTypeKey: String? = nil, titleTypeKeys: [String], titleSeperator: String = ", ", subtitleTypeKeys: [String]? = nil, subtitleSeperator: String = ", ", sectionKey: String, needDataDictionary: Bool = false) -> Dictionary<String,Array<HJRowData<Element>>> {
+    class func parseDataFromArrayOfDictionary<Element: RowTypeConstraints>(baseArray: Array<Dictionary<String,Any>>, idTypeKey: String? = nil, titleTypeKeys: [String], titleSeperator: String = ", ", subtitleTypeKeys: [String]? = nil, subtitleSeperator: String = ", ", sectionKey: String) -> Dictionary<String,Array<HJRowData<Element>>> {
         
         var dataDict: Dictionary<String,Array<HJRowData<Element>>> = [:]
         
@@ -580,7 +585,7 @@ class HJCustomListViewController<RowData: ListRowProtocol>: UIViewController, UI
             let titleTxt = getDataFromMultipleKeys(dictionary: dictionary, stringArr: titleTypeKeys, seperatorString: titleSeperator)
             let subtitleTxt = getDataFromMultipleKeys(dictionary: dictionary, stringArr: subtitleTypeKeys, seperatorString: subtitleSeperator)
             
-            let rowData = HJRowData<Element>(id: dataID, title: titleTxt, subtitle: subtitleTxt, rowObject: nil, dataDictionary: needDataDictionary ? dictionary : nil)
+            let rowData = HJRowData<Element>(id: dataID, title: titleTxt, subtitle: subtitleTxt, rowObject: nil)
             
             if var arr = dataDict[sectionName]{
                 arr.append(rowData)
@@ -610,12 +615,10 @@ class HJCustomListViewController<RowData: ListRowProtocol>: UIViewController, UI
         return dataArr
     }
     
-    private func checkAndRemoveDuplicate(_ rowData: RowData) -> Bool{
-        if selectedDataArr.contains(where: { $0 == rowData}){
-            if let itemToRemoveIndex = selectedDataArr.firstIndex(of: rowData) {
-                selectedDataArr.remove(at: itemToRemoveIndex)
-                return true
-            }
+    private func checkAndRemoveDuplicate(_ selectedRowData: RowData) -> Bool{
+        if let index = getIndexInSelectedData(for: selectedRowData) {
+            selectedDataArr.remove(at: index)
+            return true
         }
         
         return false
@@ -840,7 +843,7 @@ extension HJCustomListViewController {
         cell.detailTextLabel?.text = rowData.subtitle
         
         if listConfiguration.shouldShowSelection {
-            if selectedDataArr.contains(where: { $0 == rowData }){
+            if let _ = getIndexInSelectedData(for: rowData) {
                 
                 if let checkedImage = cellConfiguration.selectionConfiguration.checked {
                     cell.imageView?.image = checkedImage
@@ -990,6 +993,30 @@ extension HJCustomListViewController {
         }
         
         return IndexPath(row: 0, section: 0)
+    }
+    
+    private
+    func getIndexInSelectedData(for selectedRowData: RowData) -> Int? {
+        for (index, row) in selectedDataArr.enumerated() {
+            
+            if row.title == selectedRowData.title {
+                if let currentSubtitle = row.subtitle,
+                   let rowSubtitle = selectedRowData.subtitle,
+                   currentSubtitle != rowSubtitle {
+                    return nil
+                }
+                
+                if let currentRowObj = row.rowObject,
+                   let selectedRowObj = selectedRowData.rowObject,
+                   AnyEquatable(currentRowObj) != AnyEquatable(selectedRowObj) {
+                    return nil
+                }
+                
+                return index
+            }
+        }
+        
+        return nil
     }
 }
 
