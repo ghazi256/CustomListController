@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  HJCustomListController
+//  CustomListController
 //
 //  Created by Hasnain Jafri on 10/27/21.
 //  Copyright (c) 2020 Hasnain Jafri. All rights reserved.
@@ -66,20 +66,20 @@ class ViewController: UIViewController {
         let abc = HJRowData(id: "10", title: "My title 1", subtitle: nil, rowObject: testObj1)
         let def = HJRowData(id: "20", title: "My title 2", subtitle: nil, rowObject: testObj2)
         
-        let listCon = HJCustomListViewController(listConfiguration:
-                                                    ListConfiguration(displayType: .fullScreen(.dropShadow),
-                                                                                      cellConfiguration: CellConfiguration(cellType: .default,selectionConfiguration: CellSelectionConfiguration(selectionStyle: .default, checked: nil, unchecked: nil, tint: .gray))),
-                                                 listArray: [abc,def,dataTest],
-                                                 selectedArray: nil,
-                                                 uniqueID: nil)
+        let listCon = CustomListViewController(listConfiguration:
+                                                ListConfiguration(displayType: .fullScreen(.dropShadow),
+                                                                  cellConfiguration: CellConfiguration(cellType: .default,selectionConfiguration: CellSelectionConfiguration(selectionStyle: .default, checked: nil, unchecked: nil, tint: .gray))),
+                                               listArray: [abc,def,dataTest],
+                                               selectedArray: nil,
+                                               uniqueID: nil)
         listCon.show(delegate: self, caller: self)
     }
     
 }
 
-extension ViewController: HJCustomListDelegate{
+extension ViewController: CustomListDelegate{
     
-    func customList(_ customList: HJCustomListViewController, selectedValues selectedRows: Array<any ListRowProtocol>) -> Bool? {
+    func customList(_ customList: CustomListViewController, selectedValues selectedRows: Array<any ListRowProtocol>) -> Bool? {
         if let rowData = selectedRows.first as? RowObject {
             print("\(rowData.title)")
         }

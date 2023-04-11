@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.swift
-//  HJCustomListController
+//  CustomListController
 //
 //  Created by Hasnain Jafri on 10/27/21.
 //  Copyright (c) 2020 Hasnain Jafri. All rights reserved.

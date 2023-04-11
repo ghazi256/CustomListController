@@ -7,20 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		324A695729E5386A002434CE /* HJCustomListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 324A695629E5386A002434CE /* HJCustomListViewController.xib */; };
+		324A695729E5386A002434CE /* CustomListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 324A695629E5386A002434CE /* CustomListViewController.xib */; };
 		3273AEF127296730002D765E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3273AEF027296730002D765E /* AppDelegate.swift */; };
 		3273AEF327296730002D765E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3273AEF227296730002D765E /* SceneDelegate.swift */; };
 		3273AEF527296730002D765E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3273AEF427296730002D765E /* ViewController.swift */; };
 		3273AEF827296730002D765E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3273AEF627296730002D765E /* Main.storyboard */; };
 		3273AEFA27296731002D765E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3273AEF927296731002D765E /* Assets.xcassets */; };
 		3273AEFD27296731002D765E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3273AEFB27296731002D765E /* LaunchScreen.storyboard */; };
-		3273AF0A272967EC002D765E /* HJCustomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3273AF07272967EC002D765E /* HJCustomListViewController.swift */; };
+		3273AF0A272967EC002D765E /* CustomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3273AF07272967EC002D765E /* CustomListViewController.swift */; };
 		3273AF0B272967EC002D765E /* CustomListAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3273AF08272967EC002D765E /* CustomListAssets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		324A695629E5386A002434CE /* HJCustomListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HJCustomListViewController.xib; sourceTree = "<group>"; };
-		3273AEED27296730002D765E /* HJCustomListController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HJCustomListController.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		324A695629E5386A002434CE /* CustomListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomListViewController.xib; sourceTree = "<group>"; };
+		3273AEED27296730002D765E /* CustomListController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomListController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3273AEF027296730002D765E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3273AEF227296730002D765E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		3273AEF427296730002D765E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -28,7 +28,7 @@
 		3273AEF927296731002D765E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3273AEFC27296731002D765E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3273AEFE27296731002D765E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3273AF07272967EC002D765E /* HJCustomListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HJCustomListViewController.swift; sourceTree = "<group>"; };
+		3273AF07272967EC002D765E /* CustomListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomListViewController.swift; sourceTree = "<group>"; };
 		3273AF08272967EC002D765E /* CustomListAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CustomListAssets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -46,7 +46,7 @@
 		3273AEE427296730002D765E = {
 			isa = PBXGroup;
 			children = (
-				3273AEEF27296730002D765E /* HJCustomListController */,
+				3273AEEF27296730002D765E /* CustomListController */,
 				3273AEEE27296730002D765E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,12 +54,12 @@
 		3273AEEE27296730002D765E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3273AEED27296730002D765E /* HJCustomListController.app */,
+				3273AEED27296730002D765E /* CustomListController.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3273AEEF27296730002D765E /* HJCustomListController */ = {
+		3273AEEF27296730002D765E /* CustomListController */ = {
 			isa = PBXGroup;
 			children = (
 				3273AEF027296730002D765E /* AppDelegate.swift */,
@@ -71,14 +71,14 @@
 				3273AEFB27296731002D765E /* LaunchScreen.storyboard */,
 				3273AEFE27296731002D765E /* Info.plist */,
 			);
-			path = HJCustomListController;
+			path = CustomListController;
 			sourceTree = "<group>";
 		};
 		3273AF05272967EC002D765E /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				3273AF07272967EC002D765E /* HJCustomListViewController.swift */,
-				324A695629E5386A002434CE /* HJCustomListViewController.xib */,
+				3273AF07272967EC002D765E /* CustomListViewController.swift */,
+				324A695629E5386A002434CE /* CustomListViewController.xib */,
 				3273AF08272967EC002D765E /* CustomListAssets.xcassets */,
 			);
 			path = Source;
@@ -87,9 +87,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3273AEEC27296730002D765E /* HJCustomListController */ = {
+		3273AEEC27296730002D765E /* CustomListController */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3273AF0127296731002D765E /* Build configuration list for PBXNativeTarget "HJCustomListController" */;
+			buildConfigurationList = 3273AF0127296731002D765E /* Build configuration list for PBXNativeTarget "CustomListController" */;
 			buildPhases = (
 				3273AEE927296730002D765E /* Sources */,
 				3273AEEA27296730002D765E /* Frameworks */,
@@ -99,9 +99,9 @@
 			);
 			dependencies = (
 			);
-			name = HJCustomListController;
+			name = CustomListController;
 			productName = HJCustomListController;
-			productReference = 3273AEED27296730002D765E /* HJCustomListController.app */;
+			productReference = 3273AEED27296730002D765E /* CustomListController.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -119,7 +119,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3273AEE827296730002D765E /* Build configuration list for PBXProject "HJCustomListController" */;
+			buildConfigurationList = 3273AEE827296730002D765E /* Build configuration list for PBXProject "CustomListController" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -132,7 +132,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3273AEEC27296730002D765E /* HJCustomListController */,
+				3273AEEC27296730002D765E /* CustomListController */,
 			);
 		};
 /* End PBXProject section */
@@ -144,7 +144,7 @@
 			files = (
 				3273AEFD27296731002D765E /* LaunchScreen.storyboard in Resources */,
 				3273AEFA27296731002D765E /* Assets.xcassets in Resources */,
-				324A695729E5386A002434CE /* HJCustomListViewController.xib in Resources */,
+				324A695729E5386A002434CE /* CustomListViewController.xib in Resources */,
 				3273AF0B272967EC002D765E /* CustomListAssets.xcassets in Resources */,
 				3273AEF827296730002D765E /* Main.storyboard in Resources */,
 			);
@@ -159,7 +159,7 @@
 			files = (
 				3273AEF527296730002D765E /* ViewController.swift in Sources */,
 				3273AEF127296730002D765E /* AppDelegate.swift in Sources */,
-				3273AF0A272967EC002D765E /* HJCustomListViewController.swift in Sources */,
+				3273AF0A272967EC002D765E /* CustomListViewController.swift in Sources */,
 				3273AEF327296730002D765E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -237,7 +237,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -292,7 +292,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -312,7 +312,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = HJCustomListController/Info.plist;
+				INFOPLIST_FILE = CustomListController/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -324,7 +324,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bmsoft.HJCustomListController;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bmsoft.CustomListController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -343,7 +343,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = HJCustomListController/Info.plist;
+				INFOPLIST_FILE = CustomListController/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -355,7 +355,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bmsoft.HJCustomListController;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bmsoft.CustomListController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -367,7 +367,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3273AEE827296730002D765E /* Build configuration list for PBXProject "HJCustomListController" */ = {
+		3273AEE827296730002D765E /* Build configuration list for PBXProject "CustomListController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3273AEFF27296731002D765E /* Debug */,
@@ -376,7 +376,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3273AF0127296731002D765E /* Build configuration list for PBXNativeTarget "HJCustomListController" */ = {
+		3273AF0127296731002D765E /* Build configuration list for PBXNativeTarget "CustomListController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3273AF0227296731002D765E /* Debug */,

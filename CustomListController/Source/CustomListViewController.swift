@@ -1,5 +1,5 @@
 //
-//  HJCustomListViewController.swift
+//  CustomListViewController.swift
 //  Fox
 //
 //  Created by Hasnain Jafri on 19/10/2020.
@@ -83,8 +83,8 @@ struct TopViewConfiguration {
 
 struct CellConfiguration {
     var cellType: UITableViewCell.CellStyle
-    var titleAttributes: HJLabelAttributes = HJLabelAttributes(font: UIFont(name: "Helvetica", size: 15.0)!)
-    var subtitleAttributes: HJLabelAttributes = HJLabelAttributes(font: UIFont(name: "Helvetica-Light", size: 13.0)!)
+    var titleAttributes: LabelAttributes = LabelAttributes(font: UIFont(name: "Helvetica", size: 15.0)!)
+    var subtitleAttributes: LabelAttributes = LabelAttributes(font: UIFont(name: "Helvetica-Light", size: 13.0)!)
     var accessoryImage: UIImage?
     var acessoryUserInterationEnabled = true
     var selectionConfiguration: CellSelectionConfiguration = CellSelectionConfiguration()
@@ -115,6 +115,7 @@ struct BottomButtonConfiguration {
     var width: CGFloat = 150
     var height: CGFloat = 40
 }
+
 
 struct SearchbarConfiguration {
     var placeholder: String = ""
@@ -183,13 +184,13 @@ struct HJRowData<Element: RowTypeConstraints>: ListRowProtocol {
     }
 }
 
-struct HJIdentifier {
+struct CustomListIdentifier {
     var uniqueID: Double?
     var stringIdentifier: String?
     var controlObject: Any?
 }
 
-struct HJLabelAttributes {
+struct LabelAttributes {
     var font: UIFont
     var alignment: NSTextAlignment
     var textToHighlight: [String]?
@@ -211,38 +212,38 @@ struct HJLabelAttributes {
 
 //MARK: - protocol
 
-protocol HJCustomListDelegate: AnyObject {
+protocol CustomListDelegate: AnyObject {
     
     /// - Return true if we want to dsimiss Custome List on selection
-    @discardableResult func customList(_ customList: HJCustomListViewController, selectedValues selectedRows: Array<any ListRowProtocol>) -> Bool?
+    @discardableResult func customList(_ customList: CustomListViewController, selectedValues selectedRows: Array<any ListRowProtocol>) -> Bool?
     
-    func customList(_ customList: HJCustomListViewController, leftButtonTapped selectedRows: Array<any ListRowProtocol>)
-    func customList(_ customList: HJCustomListViewController, rightButtonTapped selectedRows: Array<any ListRowProtocol>)
-    func customList(_ customList: HJCustomListViewController, bottomButtonTapped selectedRows: Array<any ListRowProtocol>)
-    func customList(_ customList: HJCustomListViewController, accessoryButtonTapped accessoryButton: UIButton, rowData: any ListRowProtocol)
-    func customList(_ customList: HJCustomListViewController, colorForTitle rowData: any ListRowProtocol) -> UIColor?
-    func customList(_ customList: HJCustomListViewController, colorForSubtitle rowData: any ListRowProtocol) -> UIColor?
-    func customList(_ customList: HJCustomListViewController, colorFroRow rowData: any ListRowProtocol) -> UIColor?
+    func customList(_ customList: CustomListViewController, leftButtonTapped selectedRows: Array<any ListRowProtocol>)
+    func customList(_ customList: CustomListViewController, rightButtonTapped selectedRows: Array<any ListRowProtocol>)
+    func customList(_ customList: CustomListViewController, bottomButtonTapped selectedRows: Array<any ListRowProtocol>)
+    func customList(_ customList: CustomListViewController, accessoryButtonTapped accessoryButton: UIButton, rowData: any ListRowProtocol)
+    func customList(_ customList: CustomListViewController, colorForTitle rowData: any ListRowProtocol) -> UIColor?
+    func customList(_ customList: CustomListViewController, colorForSubtitle rowData: any ListRowProtocol) -> UIColor?
+    func customList(_ customList: CustomListViewController, colorFroRow rowData: any ListRowProtocol) -> UIColor?
     /// - Called when shouldShowSelection is turned false
-    func customList(_ customList: HJCustomListViewController, imageFromRow rowData: any ListRowProtocol) -> UIImage?
+    func customList(_ customList: CustomListViewController, imageFromRow rowData: any ListRowProtocol) -> UIImage?
     /// - Called when list view controller is being dismissed
-    func customList(_ customList: HJCustomListViewController, listViewDismissed selectedRows: Array<any ListRowProtocol>)
+    func customList(_ customList: CustomListViewController, listViewDismissed selectedRows: Array<any ListRowProtocol>)
 }
 
 //Provide Default Implementations for optional protocols
-extension HJCustomListDelegate {
-    func customList(_ customList: HJCustomListViewController, leftButtonTapped selectedRows: Array<any ListRowProtocol>) {}
-    func customList(_ customList: HJCustomListViewController, rightButtonTapped selectedRows: Array<any ListRowProtocol>) {}
-    func customList(_ customList: HJCustomListViewController, bottomButtonTapped selectedRows: Array<any ListRowProtocol>) {}
-    func customList(_ customList: HJCustomListViewController, accessoryButtonTapped accessoryButton: UIButton, rowData: any ListRowProtocol) {}
-    func customList(_ customList: HJCustomListViewController, colorForTitle rowData: any ListRowProtocol) -> UIColor? { return nil }
-    func customList(_ customList: HJCustomListViewController, colorForSubtitle rowData: any ListRowProtocol) -> UIColor? { return nil }
-    func customList(_ customList: HJCustomListViewController, colorFroRow rowData: any ListRowProtocol) -> UIColor? { return nil }
-    func customList(_ customList: HJCustomListViewController, imageFromRow rowData: any ListRowProtocol) -> UIImage? { return nil }
-    func customList(_ customList: HJCustomListViewController, listViewDismissed selectedRows: Array<any ListRowProtocol>) {}
+extension CustomListDelegate {
+    func customList(_ customList: CustomListViewController, leftButtonTapped selectedRows: Array<any ListRowProtocol>) {}
+    func customList(_ customList: CustomListViewController, rightButtonTapped selectedRows: Array<any ListRowProtocol>) {}
+    func customList(_ customList: CustomListViewController, bottomButtonTapped selectedRows: Array<any ListRowProtocol>) {}
+    func customList(_ customList: CustomListViewController, accessoryButtonTapped accessoryButton: UIButton, rowData: any ListRowProtocol) {}
+    func customList(_ customList: CustomListViewController, colorForTitle rowData: any ListRowProtocol) -> UIColor? { return nil }
+    func customList(_ customList: CustomListViewController, colorForSubtitle rowData: any ListRowProtocol) -> UIColor? { return nil }
+    func customList(_ customList: CustomListViewController, colorFroRow rowData: any ListRowProtocol) -> UIColor? { return nil }
+    func customList(_ customList: CustomListViewController, imageFromRow rowData: any ListRowProtocol) -> UIImage? { return nil }
+    func customList(_ customList: CustomListViewController, listViewDismissed selectedRows: Array<any ListRowProtocol>) {}
 }
 
-class HJCustomListViewController: UIViewController {
+class CustomListViewController: UIViewController {
 
     //MARK: - IBOutelt
     
@@ -284,7 +285,7 @@ class HJCustomListViewController: UIViewController {
     private var listDataDict: Dictionary<String,Array<RowData>>
     private var listConfiguration: ListConfiguration
     private var isSectionBasedDistributed: Bool
-    weak var delegate: HJCustomListDelegate?
+    weak var delegate: CustomListDelegate?
     
     private var hasLayoutFinished = false
     
@@ -298,11 +299,11 @@ class HJCustomListViewController: UIViewController {
     private let defaultRightButtonTitle = "Done"
     
     //Object to identify diff
-    var uniqueID: HJIdentifier?
+    var uniqueID: CustomListIdentifier?
     
     //MARK: - Initialization
     
-    init(listConfiguration: ListConfiguration, listArray: Array<RowData>, selectedArray: Array<RowData>? = nil, uniqueID: HJIdentifier?) {
+    init(listConfiguration: ListConfiguration, listArray: Array<RowData>, selectedArray: Array<RowData>? = nil, uniqueID: CustomListIdentifier?) {
         
         self.listConfiguration = listConfiguration
         self.listDataArr = listArray
@@ -318,10 +319,10 @@ class HJCustomListViewController: UIViewController {
         
         isSectionBasedDistributed = false
         
-        super.init(nibName: "HJCustomListViewController", bundle: nil)
+        super.init(nibName: "CustomListViewController", bundle: nil)
     }
     
-    init(listConfiguration: ListConfiguration, listDictionary: Dictionary<String,Array<RowData>>, selectedArray: Array<RowData>? = nil, uniqueID: HJIdentifier?) {
+    init(listConfiguration: ListConfiguration, listDictionary: Dictionary<String,Array<RowData>>, selectedArray: Array<RowData>? = nil, uniqueID: CustomListIdentifier?) {
 
         /*if listConfiguration.isMultipleSelectionAllowed && listConfiguration.topViewConfiguration == nil{
             self.listConfiguration.topViewConfiguration = TopViewConfiguration(displayLeftBarButtonItem: false, displayRightBarButtonItem: true, leftBarButtonTitle: "", rightBarButtonTitle: defaultRightButtonTitle, title: "")
@@ -341,7 +342,7 @@ class HJCustomListViewController: UIViewController {
         
         isSectionBasedDistributed = true
         
-        super.init(nibName: "HJCustomListViewController", bundle: nil)
+        super.init(nibName: "CustomListViewController", bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -534,13 +535,13 @@ class HJCustomListViewController: UIViewController {
     /// - Parameters:
     ///   - delegate: For call backs based on actions.
     ///   - caller: The view controller implementing the ListViewController. Default is nil which will get the calling view controller automatically.
-    func show(delegate: HJCustomListDelegate?, caller: UIViewController? = nil) {
+    func show(delegate: CustomListDelegate?, caller: UIViewController? = nil) {
         
         var callingController: UIViewController? = nil
         
         if let callingClass = caller {
             callingController = callingClass
-        }else if let callingClass = HJCustomListViewController.getTopViewController(){
+        }else if let callingClass = CustomListViewController.getTopViewController(){
             callingController = callingClass
         }
     
@@ -563,7 +564,7 @@ class HJCustomListViewController: UIViewController {
                 self.view.alpha = 1.0
             }
         }else{
-            HJCustomListViewController.presentPopover(baseViewController: callingController, presentedViewController: self)
+            CustomListViewController.presentPopover(baseViewController: callingController, presentedViewController: self)
        }
     }
     
@@ -701,7 +702,7 @@ class HJCustomListViewController: UIViewController {
 
 //MARK: - UITableViewDelegate & UITableViewDataSource
 
-extension HJCustomListViewController: UITableViewDataSource, UITableViewDelegate {
+extension CustomListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if isSectionBasedDistributed == false{
@@ -885,7 +886,7 @@ extension HJCustomListViewController: UITableViewDataSource, UITableViewDelegate
 
 //MARK: - TableView Helper
 
-extension HJCustomListViewController {
+extension CustomListViewController {
     
     private func configureCell(_ cell: UITableViewCell, _ rowData: RowData) {
         
@@ -980,7 +981,7 @@ extension HJCustomListViewController {
 
 //MARK: - UISearchBarDelegate
 
-extension HJCustomListViewController: UISearchBarDelegate{
+extension CustomListViewController: UISearchBarDelegate{
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
@@ -1033,7 +1034,7 @@ extension HJCustomListViewController: UISearchBarDelegate{
 
 //MARK: - UIAdaptivePresentationControllerDelegate & UIPopoverPresentationControllerDelegate
 
-extension HJCustomListViewController: UIAdaptivePresentationControllerDelegate, UIPopoverPresentationControllerDelegate{
+extension CustomListViewController: UIAdaptivePresentationControllerDelegate, UIPopoverPresentationControllerDelegate{
     
     public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.none
@@ -1046,7 +1047,7 @@ extension HJCustomListViewController: UIAdaptivePresentationControllerDelegate, 
     func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
         let shouldDim = self.listConfiguration.popoverConfiguration?.shouldDimBackground ?? false
         if shouldDim {
-            guard let callingController = HJCustomListViewController.getTopViewController() else { return true }
+            guard let callingController = CustomListViewController.getTopViewController() else { return true }
             callingController.view.alpha = 1
         }
         
@@ -1060,11 +1061,11 @@ extension HJCustomListViewController: UIAdaptivePresentationControllerDelegate, 
 
 //MARK: ListView Presentation
 
-extension HJCustomListViewController{
+extension CustomListViewController{
     
     fileprivate
     class
-    func presentPopover(baseViewController: UIViewController, presentedViewController: HJCustomListViewController){
+    func presentPopover(baseViewController: UIViewController, presentedViewController: CustomListViewController){
         
         let defaultTopViewHeight: CGFloat = 44
         let defaultBottomViewHeight: CGFloat = 40
@@ -1112,7 +1113,7 @@ extension HJCustomListViewController{
 
 //MARK: - Helper
 
-extension HJCustomListViewController {
+extension CustomListViewController {
 
     private
     class
@@ -1302,9 +1303,9 @@ extension AnyEquatable: Equatable {
  
  let listConfiguration = ListConfiguration(displayType: .fullScreen(.blur), topViewConfiguration: topViewConfiguration, isMultipleSelectionAllowed: false, cellConfiguration: cellConfiguration, containerConfiguration: containerConfiguration)
  
- let listDataArr = HJCustomListViewController.parseDataFromArrayOfDictionary(baseArray: dataArr, idTypeKey: "Case_id", titleTypeKey: ["PatientLastName","PatientFirstName"], subtitleTypeKey: ["Discipline","Case_no"], needDataDict: true)
+ let listDataArr = CustomListViewController.parseDataFromArrayOfDictionary(baseArray: dataArr, idTypeKey: "Case_id", titleTypeKey: ["PatientLastName","PatientFirstName"], subtitleTypeKey: ["Discipline","Case_no"], needDataDict: true)
  
- let customListController = HJCustomListViewController(listConfiguration: listConfiguration, listDataArr: listDataArr, uniqueID: nil)
+ let customListController = CustomListViewController(listConfiguration: listConfiguration, listDataArr: listDataArr, uniqueID: nil)
  
  let rect = quickNewAppointmentBtn.superview!.convert(quickNewAppointmentBtn.frame, to: self.view)
  customListController.show(delegate: self, presentingRect: rect)
