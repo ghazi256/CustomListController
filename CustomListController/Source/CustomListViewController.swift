@@ -198,20 +198,20 @@ struct HJRowData<Element: RowTypeConstraints>: ListRowProtocol {
 
 public
 struct CustomListIdentifier {
-    var uniqueID: Double?
-    var stringIdentifier: String?
-    var controlObject: Any?
+    public var uniqueID: Double?
+    public var stringIdentifier: String?
+    public var controlObject: Any?
 }
 
 public
 struct LabelAttributes {
-    var font: UIFont
-    var alignment: NSTextAlignment
-    var textToHighlight: [String]?
-    var highlightColor: UIColor?
-    var hightlightFont: UIFont?
+    public var font: UIFont
+    public var alignment: NSTextAlignment
+    public var textToHighlight: [String]?
+    public var highlightColor: UIColor?
+    public var hightlightFont: UIFont?
     
-    init(font: UIFont = UIFont.systemFont(ofSize: 15.0),
+    public init(font: UIFont = UIFont.systemFont(ofSize: 15.0),
          alignment: NSTextAlignment = .left,
          textToHighlight: [String]? = nil,
          highlightColor: UIColor = .black,
@@ -294,7 +294,7 @@ class CustomListViewController: UIViewController {
     
     //MARK: - Properties
     
-    typealias RowData = (any ListRowProtocol)
+    public typealias RowData = (any ListRowProtocol)
     
     private var listDataArr: Array<RowData>
     private var filteredeListDataArr: Array<RowData>
@@ -316,10 +316,11 @@ class CustomListViewController: UIViewController {
     private let defaultRightButtonTitle = "Done"
     
     //Object to identify diff
-    var uniqueID: CustomListIdentifier?
+    public var uniqueID: CustomListIdentifier?
     
     //MARK: - Initialization
     
+    public
     init(listConfiguration: ListConfiguration, listArray: Array<RowData>, selectedArray: Array<RowData>? = nil, uniqueID: CustomListIdentifier?) {
         
         self.listConfiguration = listConfiguration
@@ -339,6 +340,7 @@ class CustomListViewController: UIViewController {
         super.init(nibName: "CustomListViewController", bundle: nil)
     }
     
+    public
     init(listConfiguration: ListConfiguration, listDictionary: Dictionary<String,Array<RowData>>, selectedArray: Array<RowData>? = nil, uniqueID: CustomListIdentifier?) {
 
         /*if listConfiguration.isMultipleSelectionAllowed && listConfiguration.topViewConfiguration == nil{
@@ -640,7 +642,9 @@ class CustomListViewController: UIViewController {
     
     //MARK: - Data Creation
     
-    class func parseDataFromArrayOfDictionary<Element: RowTypeConstraints>(baseArray: Array<Dictionary<String,Any>>, idTypeKey: String? = nil, titleTypeKeys: [String], titleSeperator: String = ", ", defaultTitleForEmptyData: String = "", subtitleTypeKeys: [String]? = nil, subtitleSeperator: String = ", ", defaultSubtitleForEmptyData: String = "") -> Array<HJRowData<Element>> {
+    public
+    class
+    func parseDataFromArrayOfDictionary<Element: RowTypeConstraints>(baseArray: Array<Dictionary<String,Any>>, idTypeKey: String? = nil, titleTypeKeys: [String], titleSeperator: String = ", ", defaultTitleForEmptyData: String = "", subtitleTypeKeys: [String]? = nil, subtitleSeperator: String = ", ", defaultSubtitleForEmptyData: String = "") -> Array<HJRowData<Element>> {
         
         //Nested Function Start
         func parseID(_ dictionary: Dictionary<String,Any>) -> String {
@@ -668,7 +672,9 @@ class CustomListViewController: UIViewController {
         return dataArr
     }
     
-    class func parseDataFromArrayOfDictionary<Element: RowTypeConstraints>(baseArray: Array<Dictionary<String,Any>>, idTypeKey: String? = nil, titleTypeKeys: [String], titleSeperator: String = ", ", subtitleTypeKeys: [String]? = nil, subtitleSeperator: String = ", ", sectionKey: String) -> Dictionary<String,Array<HJRowData<Element>>> {
+    public
+    class
+    func parseDataFromArrayOfDictionary<Element: RowTypeConstraints>(baseArray: Array<Dictionary<String,Any>>, idTypeKey: String? = nil, titleTypeKeys: [String], titleSeperator: String = ", ", subtitleTypeKeys: [String]? = nil, subtitleSeperator: String = ", ", sectionKey: String) -> Dictionary<String,Array<HJRowData<Element>>> {
         
         var dataDict: Dictionary<String,Array<HJRowData<Element>>> = [:]
         
@@ -696,7 +702,9 @@ class CustomListViewController: UIViewController {
     ///
     ///     - Parameters:
     ///                 - baseArray: The array which needs to be converted to HJRowData array.
-    class func parseDataFromStringArray<Element: RowTypeConstraints>(baseArray: Array<String>) -> Array<HJRowData<Element>> {
+    public
+    class
+    func parseDataFromStringArray<Element: RowTypeConstraints>(baseArray: Array<String>) -> Array<HJRowData<Element>> {
         
         var dataArr: Array<HJRowData<Element>> = []
         
@@ -709,7 +717,8 @@ class CustomListViewController: UIViewController {
         return dataArr
     }
     
-    private func checkAndRemoveDuplicate(_ selectedRowData: RowData) -> Bool{
+    private
+    func checkAndRemoveDuplicate(_ selectedRowData: RowData) -> Bool {
         if let index = getIndexInSelectedData(for: selectedRowData) {
             selectedDataArr.remove(at: index)
             return true
