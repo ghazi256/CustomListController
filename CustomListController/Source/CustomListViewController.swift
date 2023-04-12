@@ -43,96 +43,96 @@ enum ListBackgroundType {
 
 public
 struct ListConfiguration {
-    var displayType: DisplayType
-    var topViewConfiguration: TopViewConfiguration?
-    var cellConfiguration: CellConfiguration
-    var bottomButtonConfiguration: BottomButtonConfiguration?
-    var searchBarConfiguration: SearchbarConfiguration?
-    var popoverConfiguration: PopoverConfiguration?
-    var containerConfiguration: ContainerConfiguration = ContainerConfiguration()
+    public var displayType: DisplayType
+    public var topViewConfiguration: TopViewConfiguration?
+    public var cellConfiguration: CellConfiguration
+    public var bottomButtonConfiguration: BottomButtonConfiguration?
+    public var searchBarConfiguration: SearchbarConfiguration?
+    public var popoverConfiguration: PopoverConfiguration?
+    public var containerConfiguration: ContainerConfiguration = ContainerConfiguration()
     
     //Show selection images or not. Will auto change to true in case of multiple selection or selected values in initialization.
-    var shouldShowSelection = true
+    public var shouldShowSelection = true
     
     //Allow to select multiple values in the list. The default value is true
-    var isMultiSelectionAllowed = false
+    public var isMultiSelectionAllowed = false
     
     //Used when isMultiSelectionAllowed is false for sending empty or selected item in case of selecting an already selected item.
-    var isAllowedToRemoveSelectedItemInSingleSelection = true
+    public var isAllowedToRemoveSelectedItemInSingleSelection = true
     
     //Flash scroll indicator. Default value is true
-    var shouldFlashScrollIndicators = true
+    public var shouldFlashScrollIndicators = true
     
     //If list have multiple sections, this will be used to draw background color or section headers.
-    var sectionHeaderBackgroundColor = UIColor.lightOrange
+    public var sectionHeaderBackgroundColor = UIColor.lightOrange
 }
 
 public
 struct ContainerConfiguration {
-    var constantSize: CGSize? = nil
-    var horizontalPadding: CGFloat = 20
-    var verticalPadding: CGFloat = 40
-    var cornerRadius: CGFloat = 10
-    var autoAdjustHeight = false
+    public var constantSize: CGSize? = nil
+    public var horizontalPadding: CGFloat = 20
+    public var verticalPadding: CGFloat = 40
+    public var cornerRadius: CGFloat = 10
+    public var autoAdjustHeight = false
 }
 
 public
 struct TopViewConfiguration {
-    var title: String
-    var displayLeftBarButtonItem: Bool
-    var displayRightBarButtonItem: Bool
-    var leftBarButtonTitle: String?
-    var rightBarButtonTitle: String?
-    var backgroundColor: UIColor = UIColor.regularOrange
+    public var title: String
+    public var displayLeftBarButtonItem: Bool
+    public var displayRightBarButtonItem: Bool
+    public var leftBarButtonTitle: String?
+    public var rightBarButtonTitle: String?
+    public var backgroundColor: UIColor = UIColor.regularOrange
 }
 
 public
 struct CellConfiguration {
-    var cellType: UITableViewCell.CellStyle
-    var titleAttributes: LabelAttributes = LabelAttributes(font: UIFont(name: "Helvetica", size: 15.0)!)
-    var subtitleAttributes: LabelAttributes = LabelAttributes(font: UIFont(name: "Helvetica-Light", size: 13.0)!)
-    var accessoryImage: UIImage?
-    var acessoryUserInterationEnabled = true
-    var selectionConfiguration: CellSelectionConfiguration = CellSelectionConfiguration()
-    var seperatorColor: UIColor?
+    public var cellType: UITableViewCell.CellStyle
+    public var titleAttributes: LabelAttributes = LabelAttributes(font: UIFont(name: "Helvetica", size: 15.0)!)
+    public var subtitleAttributes: LabelAttributes = LabelAttributes(font: UIFont(name: "Helvetica-Light", size: 13.0)!)
+    public var accessoryImage: UIImage?
+    public var acessoryUserInterationEnabled = true
+    public var selectionConfiguration: CellSelectionConfiguration = CellSelectionConfiguration()
+    public var seperatorColor: UIColor?
 }
 
 public
 struct CellSelectionConfiguration {
-    var selectionStyle: UITableViewCell.SelectionStyle = .none
-    var checked: UIImage?
-    var unchecked: UIImage?
-    var tint: UIColor = UIColor.regularOrange
+    public var selectionStyle: UITableViewCell.SelectionStyle = .none
+    public var checked: UIImage?
+    public var unchecked: UIImage?
+    public var tint: UIColor = UIColor.regularOrange
 }
 
 public
 struct PopoverConfiguration {
-    var presentingRect: CGRect
-    var direction: UIPopoverArrowDirection = .up
-    var contentSize: CGSize = CGSize(width: 250, height: 350)
-    var shouldDimBackground = false
-    var displayBorder = true
+    public var presentingRect: CGRect
+    public var direction: UIPopoverArrowDirection = .up
+    public var contentSize: CGSize = CGSize(width: 250, height: 350)
+    public var shouldDimBackground = false
+    public var displayBorder = true
 }
 
 public
 struct BottomButtonConfiguration {
-    var title: String
-    var image: UIImage?
-    var titleColor: UIColor = .white
-    var titleFont: UIFont = UIFont.systemFont(ofSize: 15.0)
-    var backgroundColor: UIColor = UIColor(red: 193.0/255.0, green: 27.0/255.0, blue: 102.0/255.0, alpha: 1.0)
-    var width: CGFloat = 150
-    var height: CGFloat = 40
+    public var title: String
+    public var image: UIImage?
+    public var titleColor: UIColor = .white
+    public var titleFont: UIFont = UIFont.systemFont(ofSize: 15.0)
+    public var backgroundColor: UIColor = UIColor(red: 193.0/255.0, green: 27.0/255.0, blue: 102.0/255.0, alpha: 1.0)
+    public var width: CGFloat = 150
+    public var height: CGFloat = 40
 }
 
 public
 struct SearchbarConfiguration {
-    var placeholder: String = ""
-    var allowedCharacters: String = "0123456789abcdefghijklmnopqrstuvwxyzQWERTYUIOPLKJHGFDSAZXCVBNM,-.'\n "
-    var allowedLength: Int = 50
-    var keyboardType: UIKeyboardType = .asciiCapable
-    var tintColor: UIColor = UIColor.lightOrange
-    var textOffset = UIOffset(horizontal: 8.0, vertical: 8.0)
+    public var placeholder: String = ""
+    public var allowedCharacters: String = "0123456789abcdefghijklmnopqrstuvwxyzQWERTYUIOPLKJHGFDSAZXCVBNM,-.'\n "
+    public var allowedLength: Int = 50
+    public var keyboardType: UIKeyboardType = .asciiCapable
+    public var tintColor: UIColor = UIColor.lightOrange
+    public var textOffset = UIOffset(horizontal: 8.0, vertical: 8.0)
 }
 
 public typealias RowTypeConstraints = Equatable
