@@ -28,17 +28,20 @@ import StoreKit
 
 //MARK: - Data Models
 
+public
 enum DisplayType: Equatable {
     case fullScreen(ListBackgroundType)
     case popover
 }
 
+public
 enum ListBackgroundType {
     case lightbox
     case blur
     case dropShadow
 }
 
+public
 struct ListConfiguration {
     var displayType: DisplayType
     var topViewConfiguration: TopViewConfiguration?
@@ -64,6 +67,7 @@ struct ListConfiguration {
     var sectionHeaderBackgroundColor = UIColor.lightOrange
 }
 
+public
 struct ContainerConfiguration {
     var constantSize: CGSize? = nil
     var horizontalPadding: CGFloat = 20
@@ -72,6 +76,7 @@ struct ContainerConfiguration {
     var autoAdjustHeight = false
 }
 
+public
 struct TopViewConfiguration {
     var title: String
     var displayLeftBarButtonItem: Bool
@@ -81,6 +86,7 @@ struct TopViewConfiguration {
     var backgroundColor: UIColor = UIColor.regularOrange
 }
 
+public
 struct CellConfiguration {
     var cellType: UITableViewCell.CellStyle
     var titleAttributes: LabelAttributes = LabelAttributes(font: UIFont(name: "Helvetica", size: 15.0)!)
@@ -91,6 +97,7 @@ struct CellConfiguration {
     var seperatorColor: UIColor?
 }
 
+public
 struct CellSelectionConfiguration {
     var selectionStyle: UITableViewCell.SelectionStyle = .none
     var checked: UIImage?
@@ -98,6 +105,7 @@ struct CellSelectionConfiguration {
     var tint: UIColor = UIColor.regularOrange
 }
 
+public
 struct PopoverConfiguration {
     var presentingRect: CGRect
     var direction: UIPopoverArrowDirection = .up
@@ -106,6 +114,7 @@ struct PopoverConfiguration {
     var displayBorder = true
 }
 
+public
 struct BottomButtonConfiguration {
     var title: String
     var image: UIImage?
@@ -116,7 +125,7 @@ struct BottomButtonConfiguration {
     var height: CGFloat = 40
 }
 
-
+public
 struct SearchbarConfiguration {
     var placeholder: String = ""
     var allowedCharacters: String = "0123456789abcdefghijklmnopqrstuvwxyzQWERTYUIOPLKJHGFDSAZXCVBNM,-.'\n "
@@ -126,9 +135,10 @@ struct SearchbarConfiguration {
     var textOffset = UIOffset(horizontal: 8.0, vertical: 8.0)
 }
 
-typealias RowTypeConstraints = Equatable
-struct EmptyElement: RowTypeConstraints { }
+public typealias RowTypeConstraints = Equatable
+public struct EmptyElement: RowTypeConstraints { }
 
+public
 protocol ListRowProtocol: Equatable {
     associatedtype ListElement: RowTypeConstraints
     var title: String { get set}
@@ -136,6 +146,7 @@ protocol ListRowProtocol: Equatable {
     var rowObject: ListElement? { get set }
 }
 
+public
 extension ListRowProtocol {
     var subtitle: String? {
         get {
@@ -150,14 +161,15 @@ extension ListRowProtocol {
     }
 }
 
+public
 struct HJRowData<Element: RowTypeConstraints>: ListRowProtocol {
     
-    typealias ListElement = Element
+    public typealias ListElement = Element
     
-    var id: String?
-    var title: String
-    var subtitle: String?
-    var rowObject: ListElement?
+    public var id: String?
+    public var title: String
+    public var subtitle: String?
+    public var rowObject: ListElement?
     
     init(id: String?, title: String, subtitle: String? = nil, rowObject: ListElement? = nil) {
         self.id = id
@@ -166,7 +178,7 @@ struct HJRowData<Element: RowTypeConstraints>: ListRowProtocol {
         self.rowObject = rowObject
     }
     
-    static func == (lhs: HJRowData, rhs: HJRowData) -> Bool {
+    public static func == (lhs: HJRowData, rhs: HJRowData) -> Bool {
         
         if let lhsID = lhs.id, let rhsID = rhs.id {
             if lhsID.isEmpty == false && rhsID.isEmpty == false{
@@ -184,12 +196,14 @@ struct HJRowData<Element: RowTypeConstraints>: ListRowProtocol {
     }
 }
 
+public
 struct CustomListIdentifier {
     var uniqueID: Double?
     var stringIdentifier: String?
     var controlObject: Any?
 }
 
+public
 struct LabelAttributes {
     var font: UIFont
     var alignment: NSTextAlignment
@@ -212,6 +226,7 @@ struct LabelAttributes {
 
 //MARK: - protocol
 
+public
 protocol CustomListDelegate: AnyObject {
     
     /// - Return true if we want to dsimiss Custome List on selection
@@ -231,6 +246,7 @@ protocol CustomListDelegate: AnyObject {
 }
 
 //Provide Default Implementations for optional protocols
+public
 extension CustomListDelegate {
     func customList(_ customList: CustomListViewController, leftButtonTapped selectedRows: Array<any ListRowProtocol>) {}
     func customList(_ customList: CustomListViewController, rightButtonTapped selectedRows: Array<any ListRowProtocol>) {}
@@ -243,6 +259,7 @@ extension CustomListDelegate {
     func customList(_ customList: CustomListViewController, listViewDismissed selectedRows: Array<any ListRowProtocol>) {}
 }
 
+public
 class CustomListViewController: UIViewController {
 
     //MARK: - IBOutelt
@@ -351,7 +368,7 @@ class CustomListViewController: UIViewController {
     
     //MARK: - View Loading
     
-    override func viewDidLayoutSubviews() {
+    public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         if hasLayoutFinished == false {
@@ -382,13 +399,13 @@ class CustomListViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear (_ animated: Bool) {
+    public override func viewDidAppear (_ animated: Bool) {
         super.viewDidAppear(animated)
 
         if listConfiguration.shouldFlashScrollIndicators {
@@ -535,6 +552,7 @@ class CustomListViewController: UIViewController {
     /// - Parameters:
     ///   - delegate: For call backs based on actions.
     ///   - caller: The view controller implementing the ListViewController. Default is nil which will get the calling view controller automatically.
+    public
     func show(delegate: CustomListDelegate?, caller: UIViewController? = nil) {
         
         var callingController: UIViewController? = nil
@@ -569,6 +587,7 @@ class CustomListViewController: UIViewController {
     }
     
     /// Dismiss List Controller
+    public
     func dismissController(completion: (() -> Void)?) {
         
         if self.listConfiguration.displayType == .popover {
@@ -704,7 +723,7 @@ class CustomListViewController: UIViewController {
 
 extension CustomListViewController: UITableViewDataSource, UITableViewDelegate {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         if isSectionBasedDistributed == false{
             return 1
         }else{
@@ -713,7 +732,7 @@ extension CustomListViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if isSectionBasedDistributed == false{
             return filteredeListDataArr.count
@@ -726,7 +745,7 @@ extension CustomListViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if isSectionBasedDistributed == false {
             return 0
         }
@@ -734,7 +753,7 @@ extension CustomListViewController: UITableViewDataSource, UITableViewDelegate {
         return 34
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if isSectionBasedDistributed == false {
             return nil
         }
@@ -757,7 +776,7 @@ extension CustomListViewController: UITableViewDataSource, UITableViewDelegate {
         return view
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         let cellConfiguration = listConfiguration.cellConfiguration
         
@@ -779,7 +798,7 @@ extension CustomListViewController: UITableViewDataSource, UITableViewDelegate {
         return UITableView.automaticDimension
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cellConfiguration = listConfiguration.cellConfiguration
         
@@ -840,7 +859,7 @@ extension CustomListViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         var currRow: RowData? = nil
@@ -983,16 +1002,16 @@ extension CustomListViewController {
 
 extension CustomListViewController: UISearchBarDelegate{
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    public func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
     }
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    public func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.showsCancelButton = false
     }
     
-    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    public func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         guard let configuration = listConfiguration.searchBarConfiguration else { return true }
         
@@ -1009,7 +1028,7 @@ extension CustomListViewController: UISearchBarDelegate{
         return text == filtered
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         let searchString = searchText.trimWhiteSpace().lowercased()
         
@@ -1022,11 +1041,11 @@ extension CustomListViewController: UISearchBarDelegate{
         tableView.reloadData()
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.showsCancelButton = false
     }
@@ -1040,11 +1059,11 @@ extension CustomListViewController: UIAdaptivePresentationControllerDelegate, UI
         return UIModalPresentationStyle.none
     }
     
-    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+    public func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.none
     }
     
-    func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
+    public func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
         let shouldDim = self.listConfiguration.popoverConfiguration?.shouldDimBackground ?? false
         if shouldDim {
             guard let callingController = CustomListViewController.getTopViewController() else { return true }
@@ -1054,13 +1073,12 @@ extension CustomListViewController: UIAdaptivePresentationControllerDelegate, UI
         return true
     }
     
-    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+    public func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
         self.dismissController(completion: nil)
     }
 }
 
 //MARK: ListView Presentation
-
 extension CustomListViewController{
     
     fileprivate
@@ -1112,7 +1130,7 @@ extension CustomListViewController{
 }
 
 //MARK: - Helper
-
+ 
 extension CustomListViewController {
 
     private
@@ -1258,6 +1276,7 @@ extension CustomListViewController {
 //MARK: - Helper Extensions
 
 //MARK: - Color
+public
 extension UIColor{
     static let regularOrange: UIColor = UIColor(red: 242.0/255.0, green: 102.0/255.0, blue: 40.0/255.0, alpha: 1.0)
     static let lightOrange: UIColor = UIColor(red: 245.0/255.0, green: 148.0/255.0, blue: 104.0/255.0, alpha: 1.0)
@@ -1265,6 +1284,7 @@ extension UIColor{
 }
 
 //MARK: - String
+public
 extension String {
     func trimWhiteSpace() -> String{
         return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
@@ -1288,25 +1308,3 @@ extension AnyEquatable: Equatable {
         return lhs.equals(rhs.value)
     }
 }
-
-///USAGE
-
-/*func showList(dataArr: Array<Dictionary<String,Any>>) {
- 
- let topViewConfiguration = TopViewConfiguration(displayLeftBarButtonItem: true, displayRightBarButtonItem: false, leftBarButtonTitle: defaultLeftButtonTitle, rightBarButtonTitle: defaultRightButtonTitle, title: "Active Cases")
- 
- let bottomButtonConfiguration = BottomButtonConfiguration(title: "Dismiss")
- 
- let cellConfiguration = CellConfiguration(cellType: .subtitle, selectionStyle: .none, accessoryImage: UIImage(named: "add-icon-3")!, acessoryUserInterationEnabled: false)
- 
- let containerConfiguration = ContainerConfiguration(horizontalPadding: 50, verticalPadding: 120, cornerRadius: 10)
- 
- let listConfiguration = ListConfiguration(displayType: .fullScreen(.blur), topViewConfiguration: topViewConfiguration, isMultipleSelectionAllowed: false, cellConfiguration: cellConfiguration, containerConfiguration: containerConfiguration)
- 
- let listDataArr = CustomListViewController.parseDataFromArrayOfDictionary(baseArray: dataArr, idTypeKey: "Case_id", titleTypeKey: ["PatientLastName","PatientFirstName"], subtitleTypeKey: ["Discipline","Case_no"], needDataDict: true)
- 
- let customListController = CustomListViewController(listConfiguration: listConfiguration, listDataArr: listDataArr, uniqueID: nil)
- 
- let rect = quickNewAppointmentBtn.superview!.convert(quickNewAppointmentBtn.frame, to: self.view)
- customListController.show(delegate: self, presentingRect: rect)
- }*/
