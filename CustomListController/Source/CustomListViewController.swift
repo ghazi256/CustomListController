@@ -65,6 +65,23 @@ struct ListConfiguration {
     
     //If list have multiple sections, this will be used to draw background color or section headers.
     public var sectionHeaderBackgroundColor = UIColor.lightOrange
+    
+    public
+    init(displayType: DisplayType,
+         topViewConfiguration: TopViewConfiguration? = nil,
+         cellConfiguration: CellConfiguration,
+         bottomButtonConfiguration: BottomButtonConfiguration? = nil,
+         searchBarConfiguration: SearchbarConfiguration? = nil,
+         popoverConfiguration: PopoverConfiguration? = nil,
+         containerConfiguration: ContainerConfiguration?) {
+        self.displayType = displayType
+        self.topViewConfiguration = topViewConfiguration
+        self.cellConfiguration = cellConfiguration
+        self.bottomButtonConfiguration = bottomButtonConfiguration
+        self.searchBarConfiguration = searchBarConfiguration
+        self.popoverConfiguration = popoverConfiguration
+        self.containerConfiguration = containerConfiguration ?? ContainerConfiguration()
+    }
 }
 
 public
@@ -73,7 +90,23 @@ struct ContainerConfiguration {
     public var horizontalPadding: CGFloat = 20
     public var verticalPadding: CGFloat = 40
     public var cornerRadius: CGFloat = 10
-    public var autoAdjustHeight = false
+    public var autoAdjustHeight: Bool = false
+    
+    public
+    init(constantSize: CGSize? = nil,
+         horizontalPadding: CGFloat,
+         verticalPadding: CGFloat,
+         cornerRadius: CGFloat,
+         autoAdjustHeight: Bool) {
+        self.constantSize = constantSize
+        self.horizontalPadding = horizontalPadding
+        self.verticalPadding = verticalPadding
+        self.cornerRadius = cornerRadius
+        self.autoAdjustHeight = autoAdjustHeight
+    }
+    
+    public
+    init() { }
 }
 
 public
@@ -84,6 +117,21 @@ struct TopViewConfiguration {
     public var leftBarButtonTitle: String?
     public var rightBarButtonTitle: String?
     public var backgroundColor: UIColor = UIColor.regularOrange
+    
+    public
+    init(title: String,
+         displayLeftBarButtonItem: Bool,
+         displayRightBarButtonItem: Bool,
+         leftBarButtonTitle: String? = nil,
+         rightBarButtonTitle: String? = nil,
+         backgroundColor: UIColor = UIColor.regularOrange) {
+        self.title = title
+        self.displayLeftBarButtonItem = displayLeftBarButtonItem
+        self.displayRightBarButtonItem = displayRightBarButtonItem
+        self.leftBarButtonTitle = leftBarButtonTitle
+        self.rightBarButtonTitle = rightBarButtonTitle
+        self.backgroundColor = backgroundColor
+    }
 }
 
 public
@@ -95,6 +143,23 @@ struct CellConfiguration {
     public var acessoryUserInterationEnabled = true
     public var selectionConfiguration: CellSelectionConfiguration = CellSelectionConfiguration()
     public var seperatorColor: UIColor?
+    
+    public
+    init(cellType: UITableViewCell.CellStyle,
+         titleAttributes: LabelAttributes = LabelAttributes(font: UIFont(name: "Helvetica", size: 15.0)!),
+         subtitleAttributes: LabelAttributes = LabelAttributes(font: UIFont(name: "Helvetica-Light", size: 13.0)!),
+         accessoryImage: UIImage? = nil,
+         acessoryUserInterationEnabled: Bool = true,
+         selectionConfiguration: CellSelectionConfiguration = CellSelectionConfiguration(),
+         seperatorColor: UIColor? = nil) {
+        self.cellType = cellType
+        self.titleAttributes = titleAttributes
+        self.subtitleAttributes = subtitleAttributes
+        self.accessoryImage = accessoryImage
+        self.acessoryUserInterationEnabled = acessoryUserInterationEnabled
+        self.selectionConfiguration = selectionConfiguration
+        self.seperatorColor = seperatorColor
+    }
 }
 
 public
@@ -103,6 +168,20 @@ struct CellSelectionConfiguration {
     public var checked: UIImage?
     public var unchecked: UIImage?
     public var tint: UIColor = UIColor.regularOrange
+
+    public
+    init(selectionStyle: UITableViewCell.SelectionStyle = .none,
+         checked: UIImage? = nil,
+         unchecked: UIImage? = nil,
+         tint: UIColor = UIColor.regularOrange) {
+        self.selectionStyle = selectionStyle
+        self.checked = checked
+        self.unchecked = unchecked
+        self.tint = tint
+    }
+    
+    public
+    init() { }
 }
 
 public
@@ -112,6 +191,19 @@ struct PopoverConfiguration {
     public var contentSize: CGSize = CGSize(width: 250, height: 350)
     public var shouldDimBackground = false
     public var displayBorder = true
+    
+    public
+    init(presentingRect: CGRect,
+         direction: UIPopoverArrowDirection = .up,
+         contentSize: CGSize = CGSize(width: 250, height: 350),
+         shouldDimBackground: Bool = false,
+         displayBorder: Bool = true) {
+        self.presentingRect = presentingRect
+        self.direction = direction
+        self.contentSize = contentSize
+        self.shouldDimBackground = shouldDimBackground
+        self.displayBorder = displayBorder
+    }
 }
 
 public
@@ -123,6 +215,23 @@ struct BottomButtonConfiguration {
     public var backgroundColor: UIColor = UIColor(red: 193.0/255.0, green: 27.0/255.0, blue: 102.0/255.0, alpha: 1.0)
     public var width: CGFloat = 150
     public var height: CGFloat = 40
+
+    public
+    init(title: String,
+         image: UIImage?,
+         titleColor: UIColor = .white,
+         titleFont: UIFont = UIFont.systemFont(ofSize: 15.0),
+         backgroundColor: UIColor = UIColor(red: 193.0/255.0, green: 27.0/255.0, blue: 102.0/255.0, alpha: 1.0),
+         width: CGFloat = 150,
+         height: CGFloat = 40) {
+        self.title = title
+        self.image = image
+        self.titleColor = titleColor
+        self.titleFont = titleFont
+        self.backgroundColor = backgroundColor
+        self.width = width
+        self.height = height
+    }
 }
 
 public
