@@ -73,7 +73,7 @@ struct ListConfiguration {
          bottomButtonConfiguration: BottomButtonConfiguration? = nil,
          searchBarConfiguration: SearchbarConfiguration? = nil,
          popoverConfiguration: PopoverConfiguration? = nil,
-         containerConfiguration: ContainerConfiguration?) {
+         containerConfiguration: ContainerConfiguration? = nil) {
         self.displayType = displayType
         self.topViewConfiguration = topViewConfiguration
         self.cellConfiguration = cellConfiguration
@@ -232,7 +232,6 @@ struct BottomButtonConfiguration {
         self.width = width
         self.height = height
     }
-}
 }
 
 public
