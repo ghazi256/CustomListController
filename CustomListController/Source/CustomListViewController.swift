@@ -65,7 +65,7 @@ struct ListConfiguration {
     
     //If list have multiple sections, this will be used to draw background color or section headers.
     public var sectionHeaderBackgroundColor = UIColor.lightOrange
-    
+
     public
     init(displayType: DisplayType,
          topViewConfiguration: TopViewConfiguration? = nil,
@@ -143,7 +143,7 @@ struct CellConfiguration {
     public var acessoryUserInterationEnabled = true
     public var selectionConfiguration: CellSelectionConfiguration = CellSelectionConfiguration()
     public var seperatorColor: UIColor?
-    
+
     public
     init(cellType: UITableViewCell.CellStyle,
          titleAttributes: LabelAttributes = LabelAttributes(font: UIFont(name: "Helvetica", size: 15.0)!),
@@ -233,6 +233,7 @@ struct BottomButtonConfiguration {
         self.height = height
     }
 }
+}
 
 public
 struct SearchbarConfiguration {
@@ -241,7 +242,16 @@ struct SearchbarConfiguration {
     public var allowedLength: Int = 50
     public var keyboardType: UIKeyboardType = .asciiCapable
     public var tintColor: UIColor = UIColor.lightOrange
-    public var textOffset = UIOffset(horizontal: 8.0, vertical: 8.0)
+    public var textOffset: UIOffset = UIOffset(horizontal: 8.0, vertical: 8.0)
+    
+    init(placeholder: String, allowedCharacters: String, allowedLength: Int, keyboardType: UIKeyboardType, tintColor: UIColor, textOffset: UIOffset = UIOffset(horizontal: 8.0, vertical: 8.0)) {
+        self.placeholder = placeholder
+        self.allowedCharacters = allowedCharacters
+        self.allowedLength = allowedLength
+        self.keyboardType = keyboardType
+        self.tintColor = tintColor
+        self.textOffset = textOffset
+    }
 }
 
 public typealias RowTypeConstraints = Equatable
@@ -310,6 +320,15 @@ struct CustomListIdentifier {
     public var uniqueID: Double?
     public var stringIdentifier: String?
     public var controlObject: Any?
+
+    public
+    init(uniqueID: Double? = nil,
+         stringIdentifier: String? = nil,
+         controlObject: Any? = nil) {
+        self.uniqueID = uniqueID
+        self.stringIdentifier = stringIdentifier
+        self.controlObject = controlObject
+    }
 }
 
 public
