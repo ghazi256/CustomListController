@@ -168,7 +168,7 @@ struct CellSelectionConfiguration {
     public var checked: UIImage?
     public var unchecked: UIImage?
     public var tint: UIColor = UIColor.regularOrange
-    
+
     public
     init(selectionStyle: UITableViewCell.SelectionStyle = .none,
          checked: UIImage? = nil,
@@ -215,7 +215,7 @@ struct BottomButtonConfiguration {
     public var backgroundColor: UIColor = UIColor(red: 193.0/255.0, green: 27.0/255.0, blue: 102.0/255.0, alpha: 1.0)
     public var width: CGFloat = 150
     public var height: CGFloat = 40
-    
+
     public
     init(title: String,
          image: UIImage?,
@@ -232,6 +232,7 @@ struct BottomButtonConfiguration {
         self.width = width
         self.height = height
     }
+}
 }
 
 public
@@ -319,7 +320,7 @@ struct CustomListIdentifier {
     public var uniqueID: Double?
     public var stringIdentifier: String?
     public var controlObject: Any?
-    
+
     public
     init(uniqueID: Double? = nil,
          stringIdentifier: String? = nil,
