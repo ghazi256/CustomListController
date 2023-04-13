@@ -65,7 +65,7 @@ struct ListConfiguration {
     
     //If list have multiple sections, this will be used to draw background color or section headers.
     public var sectionHeaderBackgroundColor = UIColor.lightOrange
-
+    
     public
     init(displayType: DisplayType,
          topViewConfiguration: TopViewConfiguration? = nil,
@@ -143,7 +143,7 @@ struct CellConfiguration {
     public var acessoryUserInterationEnabled = true
     public var selectionConfiguration: CellSelectionConfiguration = CellSelectionConfiguration()
     public var seperatorColor: UIColor?
-
+    
     public
     init(cellType: UITableViewCell.CellStyle,
          titleAttributes: LabelAttributes = LabelAttributes(font: UIFont(name: "Helvetica", size: 15.0)!),
@@ -168,7 +168,7 @@ struct CellSelectionConfiguration {
     public var checked: UIImage?
     public var unchecked: UIImage?
     public var tint: UIColor = UIColor.regularOrange
-    
+
     public
     init(selectionStyle: UITableViewCell.SelectionStyle = .none,
          checked: UIImage? = nil,
@@ -215,7 +215,7 @@ struct BottomButtonConfiguration {
     public var backgroundColor: UIColor = UIColor(red: 193.0/255.0, green: 27.0/255.0, blue: 102.0/255.0, alpha: 1.0)
     public var width: CGFloat = 150
     public var height: CGFloat = 40
-    
+
     public
     init(title: String,
          image: UIImage?,
