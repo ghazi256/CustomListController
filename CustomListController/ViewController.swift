@@ -25,13 +25,13 @@
 
 import UIKit
 
-struct MyTest: RowTypeConstraints {
+struct MyTest: Equatable {
     var id: String? = nil
     var abc: String
     var def: Int
 }
 
-struct MyObject: RowTypeConstraints {
+struct MyObject: Equatable {
     var id: Double
     var name: String
     var age: Int
@@ -63,8 +63,8 @@ class ViewController: UIViewController {
         let testObj1 = MyTest(abc: "Test 1", def: 1)
         let testObj2 = MyTest(abc: "Test 2", def: 2)
         let dataTest = RowObject(title: "Test", dataObject: [["Test1": "Test", "Test2": 123] as [String : Any]])
-        let abc = HJRowData(id: "10", title: "My title 1", subtitle: nil, rowObject: testObj1)
-        let def = HJRowData(id: "20", title: "My title 2", subtitle: nil, rowObject: testObj2)
+        let abc = RowData(id: "10", title: "My title 1", subtitle: nil, rowObject: testObj1)
+        let def = RowData(id: "20", title: "My title 2", subtitle: nil, rowObject: testObj2)
         
         let listCon = CustomListViewController(listConfiguration:
                                                 ListConfiguration(displayType: .fullScreen(.dropShadow),
@@ -80,7 +80,7 @@ class ViewController: UIViewController {
 extension ViewController: CustomListDelegate{
     
     func customList(_ customList: CustomListViewController, selectedValues selectedRows: Array<any ListRowProtocol>) -> Bool? {
-        if let rowData = selectedRows.first as? RowObject {
+        if let rowData = selectedRows.first as? RowData{
             print("\(rowData.title)")
         }
         

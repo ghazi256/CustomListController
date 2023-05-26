@@ -243,6 +243,7 @@ struct SearchbarConfiguration {
     public var tintColor: UIColor = UIColor.lightOrange
     public var textOffset: UIOffset = UIOffset(horizontal: 8.0, vertical: 8.0)
     
+    public
     init(placeholder: String, allowedCharacters: String, allowedLength: Int, keyboardType: UIKeyboardType, tintColor: UIColor, textOffset: UIOffset = UIOffset(horizontal: 8.0, vertical: 8.0)) {
         self.placeholder = placeholder
         self.allowedCharacters = allowedCharacters
@@ -280,30 +281,33 @@ extension ListRowProtocol {
 }
 
 public
-struct HJRowData<Element: RowTypeConstraints>: ListRowProtocol {
+struct RowData: ListRowProtocol {
     
-    public typealias ListElement = Element
+    public typealias RowObject = (any RowTypeConstraints)
     
     public var id: String?
     public var title: String
     public var subtitle: String?
-    public var rowObject: ListElement?
+    public var rowObject: RowObject?
     
-    init(id: String?, title: String, subtitle: String? = nil, rowObject: ListElement? = nil) {
+    public
+    init(id: String?, title: String, subtitle: String? = nil, rowObject: RowObject? = nil) {
         self.id = id
         self.title = title
         self.subtitle = subtitle
         self.rowObject = rowObject
     }
     
-    public static func == (lhs: HJRowData, rhs: HJRowData) -> Bool {
+    public
+    static
+    func == (lhs: RowData, rhs: RowData) -> Bool {
         
         if let lhsID = lhs.id, let rhsID = rhs.id {
             if lhsID.isEmpty == false && rhsID.isEmpty == false{
                 return lhsID == rhsID
             }
         } else if let lhsRowObject = lhs.rowObject, let rhsRowObject = rhs.rowObject {
-            return lhsRowObject == rhsRowObject
+            return AnyEquatable(lhsRowObject) == AnyEquatable(rhsRowObject)
         } else if let lhsSubtitle = lhs.subtitle, let rhsSubtitle = rhs.subtitle {
             return lhs.title == rhs.title && lhsSubtitle == rhsSubtitle
         } else {
@@ -421,12 +425,12 @@ class CustomListViewController: UIViewController {
     
     //MARK: - Properties
     
-    public typealias RowData = (any ListRowProtocol)
+    public typealias RowDataObject = (any ListRowProtocol)
     
-    private var listDataArr: Array<RowData>
-    private var filteredeListDataArr: Array<RowData>
-    private var selectedDataArr: Array<RowData> = []
-    private var listDataDict: Dictionary<String,Array<RowData>>
+    private var listDataArr: Array<RowDataObject>
+    private var filteredeListDataArr: Array<RowDataObject>
+    private var selectedDataArr: Array<RowDataObject> = []
+    private var listDataDict: Dictionary<String,Array<RowDataObject>>
     private var listConfiguration: ListConfiguration
     private var isSectionBasedDistributed: Bool
     weak var delegate: CustomListDelegate?
@@ -448,7 +452,7 @@ class CustomListViewController: UIViewController {
     //MARK: - Initialization
     
     public
-    init(listConfiguration: ListConfiguration, listArray: Array<RowData>, selectedArray: Array<RowData>? = nil, uniqueID: CustomListIdentifier?) {
+    init(listConfiguration: ListConfiguration, listArray: Array<RowDataObject>, selectedArray: Array<RowDataObject>? = nil, uniqueID: CustomListIdentifier?) {
         
         self.listConfiguration = listConfiguration
         self.listDataArr = listArray
@@ -468,7 +472,7 @@ class CustomListViewController: UIViewController {
     }
     
     public
-    init(listConfiguration: ListConfiguration, listDictionary: Dictionary<String,Array<RowData>>, selectedArray: Array<RowData>? = nil, uniqueID: CustomListIdentifier?) {
+    init(listConfiguration: ListConfiguration, listDictionary: Dictionary<String,Array<RowDataObject>>, selectedArray: Array<RowDataObject>? = nil, uniqueID: CustomListIdentifier?) {
 
         /*if listConfiguration.isMultipleSelectionAllowed && listConfiguration.topViewConfiguration == nil{
             self.listConfiguration.topViewConfiguration = TopViewConfiguration(displayLeftBarButtonItem: false, displayRightBarButtonItem: true, leftBarButtonTitle: "", rightBarButtonTitle: defaultRightButtonTitle, title: "")
@@ -771,7 +775,7 @@ class CustomListViewController: UIViewController {
     
     public
     class
-    func parseDataFromArrayOfDictionary<Element: RowTypeConstraints>(baseArray: Array<Dictionary<String,Any>>, idTypeKey: String? = nil, titleTypeKeys: [String], titleSeperator: String = ", ", defaultTitleForEmptyData: String = "", subtitleTypeKeys: [String]? = nil, subtitleSeperator: String = ", ", defaultSubtitleForEmptyData: String = "") -> Array<HJRowData<Element>> {
+    func parseDataFromArrayOfDictionary(baseArray: Array<Dictionary<String,Any>>, idTypeKey: String? = nil, titleTypeKeys: [String], titleSeperator: String = ", ", defaultTitleForEmptyData: String = "", subtitleTypeKeys: [String]? = nil, subtitleSeperator: String = ", ", defaultSubtitleForEmptyData: String = "") -> Array<RowData> {
         
         //Nested Function Start
         func parseID(_ dictionary: Dictionary<String,Any>) -> String {
@@ -783,7 +787,7 @@ class CustomListViewController: UIViewController {
         }
         //Nested Function End
         
-        var dataArr: Array<HJRowData<Element>> = []
+        var dataArr: Array<RowData> = []
         
         for dictionary in baseArray {
             
@@ -791,7 +795,7 @@ class CustomListViewController: UIViewController {
             let titleTxt = getDataFromMultipleKeys(dictionary: dictionary, stringArr: titleTypeKeys, seperatorString: titleSeperator)
             let subtitleTxt = getDataFromMultipleKeys(dictionary: dictionary, stringArr: subtitleTypeKeys, seperatorString: subtitleSeperator)
             
-            let rowData = HJRowData<Element>(id: dataID, title: titleTxt, subtitle: subtitleTxt, rowObject: nil)
+            let rowData = RowData(id: dataID, title: titleTxt, subtitle: subtitleTxt, rowObject: nil)
             
             dataArr.append(rowData)
         }
@@ -801,9 +805,9 @@ class CustomListViewController: UIViewController {
     
     public
     class
-    func parseDataFromArrayOfDictionary<Element: RowTypeConstraints>(baseArray: Array<Dictionary<String,Any>>, idTypeKey: String? = nil, titleTypeKeys: [String], titleSeperator: String = ", ", subtitleTypeKeys: [String]? = nil, subtitleSeperator: String = ", ", sectionKey: String) -> Dictionary<String,Array<HJRowData<Element>>> {
+    func parseDataFromArrayOfDictionary(baseArray: Array<Dictionary<String,Any>>, idTypeKey: String? = nil, titleTypeKeys: [String], titleSeperator: String = ", ", subtitleTypeKeys: [String]? = nil, subtitleSeperator: String = ", ", sectionKey: String) -> Dictionary<String,Array<RowData>> {
         
-        var dataDict: Dictionary<String,Array<HJRowData<Element>>> = [:]
+        var dataDict: Dictionary<String,Array<RowData>> = [:]
         
         for dictionary in baseArray {
             
@@ -812,7 +816,7 @@ class CustomListViewController: UIViewController {
             let titleTxt = getDataFromMultipleKeys(dictionary: dictionary, stringArr: titleTypeKeys, seperatorString: titleSeperator)
             let subtitleTxt = getDataFromMultipleKeys(dictionary: dictionary, stringArr: subtitleTypeKeys, seperatorString: subtitleSeperator)
             
-            let rowData = HJRowData<Element>(id: dataID, title: titleTxt, subtitle: subtitleTxt, rowObject: nil)
+            let rowData = RowData(id: dataID, title: titleTxt, subtitle: subtitleTxt, rowObject: nil)
             
             if var arr = dataDict[sectionName]{
                 arr.append(rowData)
@@ -831,13 +835,13 @@ class CustomListViewController: UIViewController {
     ///                 - baseArray: The array which needs to be converted to HJRowData array.
     public
     class
-    func parseDataFromStringArray<Element: RowTypeConstraints>(baseArray: Array<String>) -> Array<HJRowData<Element>> {
+    func parseDataFromStringArray(baseArray: Array<String>) -> Array<RowData> {
         
-        var dataArr: Array<HJRowData<Element>> = []
+        var dataArr: Array<RowData> = []
         
         for string in baseArray {
             let titleTxt = string
-            let rowData = HJRowData<Element>(id: nil, title: titleTxt)
+            let rowData = RowData(id: nil, title: titleTxt)
             dataArr.append(rowData)
         }
         
@@ -845,7 +849,7 @@ class CustomListViewController: UIViewController {
     }
     
     private
-    func checkAndRemoveDuplicate(_ selectedRowData: RowData) -> Bool {
+    func checkAndRemoveDuplicate(_ selectedRowData: RowDataObject) -> Bool {
         if let index = getIndexInSelectedData(for: selectedRowData) {
             selectedDataArr.remove(at: index)
             return true
@@ -969,7 +973,7 @@ extension CustomListViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         
-        var currRow: RowData? = nil
+        var currRow: RowDataObject? = nil
         
         if isSectionBasedDistributed == false{
             currRow = filteredeListDataArr[indexPath.row]
@@ -998,7 +1002,7 @@ extension CustomListViewController: UITableViewDataSource, UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        var currRow: RowData? = nil
+        var currRow: RowDataObject? = nil
         
         if isSectionBasedDistributed == false{
             currRow = filteredeListDataArr[indexPath.row]
@@ -1043,7 +1047,7 @@ extension CustomListViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension CustomListViewController {
     
-    private func configureCell(_ cell: UITableViewCell, _ rowData: RowData) {
+    private func configureCell(_ cell: UITableViewCell, _ rowData: RowDataObject) {
         
         let cellConfiguration = listConfiguration.cellConfiguration
         
@@ -1336,7 +1340,7 @@ extension CustomListViewController {
     }
     
     private
-    func getIndexInSelectedData(for selectedRowData: RowData) -> Int? {
+    func getIndexInSelectedData(for selectedRowData: RowDataObject) -> Int? {
         for (index, row) in selectedDataArr.enumerated() {
             
             if row.title == selectedRowData.title {
@@ -1428,7 +1432,7 @@ extension String {
 }
 
 //MARK: - AnyEquatable
-private
+public
 struct AnyEquatable {
     private let value: Any
     private let equals: (Any) -> Bool
